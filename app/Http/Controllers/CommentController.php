@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Comment;
 use App\Http\Requests\CommentRequest;
 
-class CommentsController extends Controller
+class CommentController extends Controller
 {
     public function store(Request $request, Comment $comment)
     {

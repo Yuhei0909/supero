@@ -2,11 +2,12 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TweetController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\FollowController;
-use App\Http\Controllers\SearchController;
 use App\Http\Controllers\InformationController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\TweetController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,6 @@ use App\Http\Controllers\InformationController;
 */
 
 Route::middleware('auth')->group(function () {
-    Route::resource('comment', 'CommentsController', ['only' => ['store']]);
     Route::get('/tweet/search/input', [SearchController::class, 'create'])->name('search.input');
     Route::get('/tweet/search/result', [SearchController::class, 'index'])->name('search.result');
     Route::get('/tweet/timeline', [TweetController::class, 'timeline'])->name('tweet.timeline');
@@ -32,6 +32,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/tweet/mypage', [TweetController::class, 'mydata'])->name('tweet.mypage');
     Route::resource('tweet', TweetController::class);
     Route::resource('information', InformationController::class);
+    Route::resource('comment', CommentController::class)->only([
+    'store' ]);
 });
 
 Route::get('/', function () {

@@ -32,9 +32,9 @@ class CommentRequest extends FormRequest
     public function messages()
     {
         return [
-            'nickname.required' => '名前を入力してください',
-            'nickname.max' => '名前は40文字以内で入力してください',
-            'text.required' => 'コメント本文を入力してください',
+            'nickname.required' => 'ニックネームを入力してください',
+            'nickname.max' => 'ニックネームは40文字以内で入力してください',
+            'text.required' => 'コメントを入力してください',
             'text.max' => 'コメント本文は350文字以内で入力してください',
         ];
     }

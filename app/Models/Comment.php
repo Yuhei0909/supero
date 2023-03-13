@@ -9,15 +9,10 @@ class Comment extends Model
 {
     use SoftDeletes;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'tweet_id',
-        'nickname',
-        'text', 
+        'user_id',
+        'text',
     ];
 
     public function user()
@@ -29,7 +24,6 @@ class Comment extends Model
     {
         $this->user_id = $user_id;
         $this->tweet_id = $data['tweet_id'];
-        $this->nickname = $data['nickname'];
         $this->text = $data['text'];
         $this->save();
 
