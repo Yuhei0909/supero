@@ -46,17 +46,13 @@ class FollowController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-public function show($id)
-{
-  // ターゲットユーザのデータ
-  $user = User::find($id);
-  // ターゲットユーザのフォロワー一覧
-  $followers = $user->followers;
-  // ターゲットユーザのフォローしている人一覧
-  $followings  = $user->followings;
-
-  return response()->view('user.show', compact('user', 'followers', 'followings'));
-}
+    public function show($id)
+    {
+        $user = User::find($id);
+        $followers = $user->followers;
+        $followings  = $user->followings;
+        return response()->view('user.show', compact('user', 'followers', 'followings'));
+    }
 
     /**
      * Show the form for editing the specified resource.

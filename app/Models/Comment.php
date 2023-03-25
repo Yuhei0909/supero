@@ -2,32 +2,36 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\softDeletes;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Comment extends Model
 {
+    
     use SoftDeletes;
+    use HasFactory;
 
     protected $fillable = [
         'tweet_id',
         'user_id',
         'text',
+        'parent_id',
     ];
+
+    public function tweet()
+    {
+        return $this->belongsTo(Tweet::class);
+    }
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
     
-    public function commentStore(Int $user_id, Array $data)
+
+    public function children()
     {
-        $this->user_id = $user_id;
-        $this->tweet_id = $data['tweet_id'];
-        $this->text = $data['text'];
-        $this->save();
-
-        return;
+        return $this->hasMany(Comment::class, 'parent_id');
     }
-
 }

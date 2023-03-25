@@ -37,28 +37,23 @@ class TweetController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-  public function store(Request $request)
-  {
-    // バリデーション
-    $validator = Validator::make($request->all(), [
-      'tweet' => 'required | max:191',
-      'description' => 'required',
+    public function store(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'tweet' => 'required | max:191',
+            'description' => 'required',
     ]);
-    // バリデーション:エラー
     if ($validator->fails()) {
-      return redirect()
+        return redirect()
         ->route('tweet.create')
         ->withInput()
         ->withErrors($validator);
     }
 
-    // 🔽 編集 フォームから送信されてきたデータとユーザIDをマージし，DBにinsertする
-    $data = $request->merge(['user_id' => Auth::user()->id])->all();
-    $result = Tweet::create($data);
-
-    // tweet.index」にリクエスト送信（一覧ページに移動）
-    return redirect()->route('tweet.index');
-  }
+        $data = $request->merge(['user_id' => Auth::user()->id])->all();
+        $result = Tweet::create($data);
+        return redirect()->route('tweet.index');
+    }
 
     /**
      * Display the specified resource.
@@ -68,8 +63,9 @@ class TweetController extends Controller
      */
     public function show($id)
     {
-        $tweet = Tweet::find($id);
-        return response()->view('tweet.show', compact('tweet'));
+        $tweet = Tweet::findOrFail($id);
+        $comments = $tweet->comments()->with('user')->latest()->get();
+        return view('tweet.show', compact('tweet', 'comments'));
     }
 
     /**

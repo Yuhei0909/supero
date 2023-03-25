@@ -13,16 +13,16 @@ class SearchController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-public function index(Request $request)
-{
-  $keyword = trim($request->keyword);
-  $users  = User::where('name', 'like', "%{$keyword}%")->pluck('id')->all();
-  $tweets = Tweet::query()
-    ->where('tweet', 'like', "%{$keyword}%")
-    ->orWhere('description', 'like', "%{$keyword}%")
-    ->orWhereIn('user_id', $users)
-    ->get();
-  return response()->view('tweet.index', compact('tweets'));
+    public function index(Request $request)
+    {
+        $keyword = trim($request->keyword);
+        $users  = User::where('nickname', 'like', "%{$keyword}%")->pluck('id')->all();
+        $tweets = Tweet::query()
+        ->where('tweet', 'like', "%{$keyword}%")
+        ->orWhere('description', 'like', "%{$keyword}%")
+        ->orWhereIn('user_id', $users)
+        ->get();
+        return response()->view('tweet.index', compact('tweets'));
 }
 
     /**

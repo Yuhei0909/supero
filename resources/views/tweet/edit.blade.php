@@ -1,7 +1,7 @@
 <x-app-layout>
   <x-slot name="header">
-    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-      {{ __('Edit Tweet') }}
+    <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+      {{ __('編集') }}
     </h2>
   </x-slot>
 
@@ -14,23 +14,23 @@
             @method('put')
             @csrf
             <div class="flex flex-col mb-4">
-              <x-input-label for="tweet" :value="__('Tweet')" />
+              <x-input-label for="tweet" :value="__('タイトル')" />
               <x-text-input id="tweet" class="block mt-1 w-full" type="text" name="tweet" value="{{$tweet->tweet}}" required autofocus />
               <x-input-error :messages="$errors->get('tweet')" class="mt-2" />
             </div>
             <div class="flex flex-col mb-4">
-              <x-input-label for="description" :value="__('Description')" />
+              <x-input-label for="description" :value="__('内容')" />
               <x-text-input id="description" class="block mt-1 w-full" type="text" name="description" value="{{$tweet->description}}" autofocus />
               <x-input-error :messages="$errors->get('description')" class="mt-2" />
             </div>
             <div class="flex items-center justify-end mt-4">
               <a href="{{ url()->previous() }}">
                 <x-secondary-button class="ml-3">
-                  {{ __('Back') }}
+                  {{ __('戻る') }}
                 </x-primary-button>
               </a>
               <x-primary-button class="ml-3">
-                {{ __('Update') }}
+                {{ __('更新') }}
               </x-primary-button>
             </div>
           </form>
